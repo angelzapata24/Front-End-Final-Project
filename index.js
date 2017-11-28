@@ -5,66 +5,86 @@ var PAGE_DATA = {
             Price: 210,
             size: '8.5',
             quantity: 1,
-            img: '../../../../../Downloads/toro.jpg'
+            img: '../../../../../Downloads/toro.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Jordan 11 'Gamma Blue'",
             Price: 210,
             size: '9',
             quantity: 2,
-            img: '../../../../../Downloads/gamma.png'
+            img: '../../../../../Downloads/gamma.png',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Jordan 13 'Playoff'",
             Price: 190,
             size: '8',
             quantity: 3,
-            img: '../../../../../Downloads/playoff.png'
+            img: '../../../../../Downloads/playoff.png',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Nmd X Pharell  'Human Race'",
             Price: 300,
             size: '11',
             quantity: 1,
-            img: '../../../../../Downloads/humanrace.jpg'
+            img: '../../../../../Downloads/humanrace.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Jordan 9 'Barons'",
             Price: 205,
             size: '9.5',
             quantity: 4,
-            img: '../../../../../Downloads/barons.jpg'
+            img: '../../../../../Downloads/barons.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Adidas Yeezy 'Boost 350 v2 Beluga 2.0'",
             Price: 200,
             size: '9',
             quantity: 2,
-            img: '../../../../../Downloads/yezzy.jpg'
+            img: '../../../../../Downloads/yezzy.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Nmd 'Triple White Japan'",
             Price: 170,
             size: '11',
             quantity: 6,
-            img: '../../../../../Downloads/japan_nmd.jpg'
+            img: '../../../../../Downloads/japan_nmd.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Jordan 11 'Win Like 82'",
             Price: 225,
             size: '9.5',
             quantity: 8,
-            img: '../../../../../Downloads/winlike82.jpg'
+            img: '../../../../../Downloads/winlike82.jpg',
+            seller: "AZ's Sneakers"
         },
         {
             name: "Jordan 1 'Bred'",
             Price: 170,
             size: '10',
             quantity: 3,
-            img: '../../../../../Downloads/bred.jpg'
+            img: '../../../../../Downloads/bred.jpg',
+            seller: "AZ's Sneakers"
         }
     ]
 };
+
+function constructSell(item) {
+    return {
+        name: $('#product').val(),
+        Price: $('#Price').val(),
+        size: $('#size').val(),
+        quantity: $('#quantity').val(),
+        img: $('#img').val(),
+        seller: $('#fullName').val()
+    };
+}
 
 function shoes(inventory) {
     var html = '<h4>';
@@ -86,6 +106,10 @@ function shoes(inventory) {
         '<h4> <b>Quantity:</b> ' +
         inventory.quantity +
         '</h4>' +
+        '<h4> <b> Seller:</b>' +
+        inventory.seller +
+        '</h4>' +
+        '<a class="getstarted-button">Add to Cart!</a>' +
         '</center';
     ('</div>');
     return html;
@@ -99,68 +123,33 @@ function showshoes() {
     $('#shoes').html(html);
 }
 
-// function drawItems() {
-//     $('#cart').html(
-//         '<i class="fa fa-shopping-cart" aria-hidden="true">' +
-//             shoppingCart.length
-//     );
-//     html = '';
-//     for (i = 0; i < INVENTORY.length; i++) {
-//         addTo = '';
-//         remove = 'disabled';
-//         if (shoppingCart.includes(INVENTORY[i])) {
-//             remove = '';
-//         }
-//         if (INVENTORY[i].inStock === 0) {
-//             classes =
-//                 ' soldout"><img id="toplayer" src="http://www.pngall.com/wp-content/uploads/2016/06/Sold-Out-PNG-HD.png"><img id="bottomlayer" src="';
-//             addTo = 'disabled';
-//         } else {
-//             classes = '"><img src="';
-//         }
-//         if (i == 0) {
-//             html += '<div class="row">';
-//         }
-//         if (i % 3 == 0) {
-//             html += '</div><div class="row">';
-//         }
-//         html +=
-//             '<div class="col-sm-4"><div class="photo' +
-//             classes +
-//             INVENTORY[i].picUrl +
-//             '"></div><p>' +
-//             INVENTORY[i].name +
-//             '<br>$' +
-//             INVENTORY[i].price +
-//             '<br>In Stock: ' +
-//             INVENTORY[i].inStock +
-//             '<br><input id="quantity' +
-//             i +
-//             '" type="number"  value="1" max="' +
-//             INVENTORY[i].inStock +
-//             '"><button id="addToCart' +
-//             i +
-//             '" onclick="addToCart(' +
-//             i +
-//             '); drawItems();" ' +
-//             addTo +
-//             '>Add to Cart</button><br><button id="removeFromCart' +
-//             i +
-//             '" onclick="removeFromCart(' +
-//             i +
-//             '); drawItems();"' +
-//             remove +
-//             '>Remove from cart</button><button id="info' +
-//             i +
-//             '" onclick="seeInfo(' +
-//             i +
-//             ')">More info</button></div></p>';
-//     }
-//     $('#data').html(html);
-// }
+$('#addit').click(function() {
+    var productId = $('#productId').val();
+    var productName = $('#productName').val();
+    var productQuantity = $('#productQuantity').val();
+    var data = {
+        product_id: inventory.name,
+        product_name: inventory.Price,
+        quantity: inventory.quantity
+    };
+
+    $.post('/cart/add', data, showDone);
+});
+
+var showDone = function() {
+    console.log('hi');
+};
 
 function main() {
     showshoes();
+    $('#sell-form').on('submit', function(event) {
+        event.preventDefault();
+        var name = $('#fullName');
+        console.log(name);
+        PAGE_DATA.shoes.splice(0, 0, constructSell(name));
+        $('fullName').val('');
+        showshoes();
+    });
 }
 
 $(main);
