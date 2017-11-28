@@ -20,12 +20,37 @@
 </head>
 
 <body>
+    <input id="productQuantity" type="hidden" name="quantity" value="1" />
+    <input id="productId" type="hidden" name="product_id" value="91801160" />
+    <input id="productName" type="hidden" name="product_name" value="Red Hat" />
+    <div class="cta" id="addit">
+    </div>
     <div class="container">
         <center>
             <div id="Welcome">
-                <p>AZ's Sneakers Online Store</p>
+                <b>
+                    <p>AZ's Sneakers Online Store</p>
+                </b>
             </div>
         </center>
+        <div id="sellorno">
+            <p>Would you like to sell sneakers? Fill out the form below!!</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <form id="sell-form">
+                <div class="form-group">
+                    <input type="input" placeholder="Product Name" id="product" required>
+                    <input type="input" id="Price" placeholder="Price" required>
+                    <input type="input" placeholder="Size" id="size" required>
+                    <input type="input" id="quantity" placeholder="Quantity" required>
+                    <input type="input" id="img" placeholder="Image address" required>
+                    <input type="input" id="fullName" placeholder="Seller Full Name" required>
+                    <input class="btn" type="submit" value="Sell">
+                </div>
+            </form>
+        </div>
     </div>
     <div class="container">
         <div class="row">
