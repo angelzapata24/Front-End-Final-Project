@@ -1,7 +1,14 @@
 #Welcome {
-    font-size: 50px;
+    font-size: 70px;
     color: rgb(128, 122, 122);
     text-align: center;
+}
+
+#sellorno {
+    font-size: 20px;
+    color: rgb(128, 122, 122);
+    text-align: left;
+    margin-right: 16px;
 }
 
 .shoes {
