@@ -84,6 +84,8 @@ var PAGE_DATA = {
     ]
 };
 
+var cart = [];
+
 function constructSell(item) {
     return {
         name: $('#product').val(),
