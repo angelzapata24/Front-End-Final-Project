@@ -132,7 +132,11 @@ function shoes(item, index) {
 
 function cartbutton(quantity, index) {
     if (quantity > 0) {
-        return '<button class="buy" id="' + index + '">Add to Cart!</button>';
+        return (
+            '<button class="buy" id="' +
+            index +
+            '"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to Cart!</button>'
+        );
     } else {
         return (
             '<button class="buy" id="' +
