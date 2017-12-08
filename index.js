@@ -117,12 +117,22 @@ function shoes(item, index) {
         '<h4> <b> Seller:</b>' +
         item.seller +
         '</h4>' +
-        '<button class="buy" id="' +
-        index +
-        '">Add to Cart!</button>' +
-        '</center';
-    ('</div>');
+        cartbutton(item.quantity, index) +
+        '</center>' +
+        '</div>';
     return html;
+}
+
+function cartbutton(quantity, index) {
+    if (quantity > 0) {
+        return '<button class="buy" id="' + index + '">Add to Cart!</button>';
+    } else {
+        return (
+            '<button class="buy" id="' +
+            index +
+            '" disabled = "disabled" ">SOLD OUT</button>'
+        );
+    }
 }
 
 function showshoes() {
@@ -177,13 +187,14 @@ function main() {
     });
     $('.buy').click(function(event) {
         event.preventDefault();
-        var item = event.currentTarget.id;
-        cart.push(data[item]);
-        if (data[item].quantity < 0) {
-            data[item].quantity -= 1;
+        var i = event.currentTarget.id;
+        cart.push(data[i]);
+        if (data[i].quantity === 0) {
+            data[i].quantity = 0;
         } else {
-            data[item].quantity = 0;
+            data[i].quantity -= 1;
         }
+
         cartBadge();
         main();
     });
