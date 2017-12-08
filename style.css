@@ -33,11 +33,24 @@ body {
 
 .cart {
     padding: 10px;
-    width: 375px;
-    height: 400px;
     margin-bottom: 15px;
     margin-right: 6px;
+    font-size: 23px;
+    color: black;
     background-color: white;
-    font-size: 15px;
-    color: rgb(31, 31, 31);
+}
+
+.buy {
+    display: block;
+    height: 30px;
+    width: 100px;
+    border-radius: 70%;
+    border-color: rgb(20, 20, 209);
+    background-color: rgb(20, 20, 209);
+    color: white;
+}
+
+.total {
+    font-size: 23px;
+    color: white;
 }
