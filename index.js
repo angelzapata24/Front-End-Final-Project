@@ -44,7 +44,7 @@ var data = [
         seller: "AZ's Sneakers"
     },
     {
-        name: "Adidas Yeezy 'Boost 350 v2 Beluga 2.0'",
+        name: "Boost '350 v2 Beluga 2.0'",
         Price: 200,
         size: '9',
         quantity: 2,
@@ -82,6 +82,13 @@ var data = [
 ];
 
 var cart = [];
+function total(Cart) {
+    var total = 0;
+    Cart.map(function(checkout) {
+        total += checkout.Price * 0.07 + checkout.Price;
+    });
+    return total;
+}
 
 function constructSell(item) {
     return {
@@ -145,10 +152,11 @@ function showshoes() {
 
 function showcartview() {
     var inventory = cart;
-    var html = inventory.map(function(checkout) {
-        return cartView(checkout);
-    });
-    $('#shoes').html(html);
+    return inventory
+        .map(function(checkout) {
+            return cartView(checkout);
+        })
+        .join('');
 }
 
 function cartBadge() {
@@ -158,20 +166,15 @@ function cartBadge() {
 function cartView(cart) {
     var html = '<h5>';
     html +=
-        '<div class="col-lg-4 col-md-4 col-sm-4 cart">' +
+        '<div class="col-lg-3 cart">' +
         '<center>' +
-        '<img src="' +
-        cart.img +
-        '">' +
-        '<h4> <b>Shoe Name:</b> ' +
+        '<p> <b>&#8227</b> ' +
         cart.name +
-        '</h4>' +
-        '<h4> <b>Price:</b> $' +
+        ' $' +
         cart.Price +
-        '</h4>' +
-        '<h4> <b>Shoe Size:</b> ' +
+        ' Size: ' +
         cart.size +
-        '</h4>';
+        '</p></center></div></h5>';
     return html;
 }
 
@@ -194,13 +197,20 @@ function main() {
         } else {
             data[i].quantity -= 1;
         }
-
         cartBadge();
         main();
     });
     $('#cart').click(function(event) {
         event.preventDefault();
         showcartview();
+        $('#shoes').html(
+            showcartview() +
+                '<div class="total">' +
+                '<p> Total including 7% tax is: $' +
+                total(cart).toFixed(2) +
+                '</p>' +
+                '</div>'
+        );
     });
 }
 
